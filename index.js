@@ -6,6 +6,8 @@ const app = express();
 const {authRouter} = require("./routes/auth") 
 const adminRouter = require("./routes/admin"); 
 const productRouter = require("./routes/product"); 
+const userRouter = require("./routes/user"); 
+
 
 
 const {connectMongoDb} = require("./connection")
@@ -21,6 +23,8 @@ app.use(express.json());
 app.use("/api",authRouter)
 app.use("/api",adminRouter)
 app.use("/api",productRouter)
+app.use("/api",userRouter)
+
 
 app.listen(PORT, () => {
     console.log(`connected at port ${PORT}`);
