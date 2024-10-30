@@ -108,7 +108,7 @@ userRouter.post("/add-to-cart", auth, async (req, res) => {
             totalPrice,
             address,
             userId: req.user,
-            orderedAt : new Date().getMilliseconds(),
+            orderedAt: Date.now(),
         });
         order = await order.save();
         res.json(order);
@@ -116,6 +116,15 @@ userRouter.post("/add-to-cart", auth, async (req, res) => {
         res.status(500).json({error : e.message});
       }
   });
+
+  userRouter.get("/orders/me", auth , async(req, res) => {
+    try {
+      const orders = await Order.find({userId : req.user});
+      res.json(orders);
+    } catch (e) {
+      res.status(500).json({error:e.message});
+    }
+  })
   
 
 module.exports = userRouter;
